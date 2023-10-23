@@ -1,0 +1,16 @@
+<html>
+
+
+
+    <p id="name"></p>
+
+
+    <script language="javascript" type="text/javascript">
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        console.log(name);
+        document.getElementById("name").innerHTML = name;
+            
+        </script>
+</html>
+
