@@ -1,0 +1,18 @@
+{
+    "LEGION_PRAETOR": [
+        {
+            "name": "LEGION PRAETOR",
+            "type": "HQ",
+            "points": "120",
+            "rules": "Independent Character"
+        }
+    ],
+    "LEGION_CATAPHRACTII_PRAETOR": [
+        {
+            "name": "LEGION CATAPHRACTII PRAETOR",
+            "type": "HQ",
+            "points": "135",
+            "rules": "Independent Character"
+        }
+    ]
+} 
