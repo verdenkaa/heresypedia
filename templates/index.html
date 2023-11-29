@@ -1,0 +1,15 @@
+<html>
+
+  <link rel="stylesheet" href="css/index.css">
+
+  <p>Horus Heresy database v.0.0.1</p>
+  <ul>
+  {% for i in persons: %} 
+  <li><a href="{{ url_for('solider', warrior=i) }}">{{i}}</a></li> 
+  {% endfor %}
+  </ul>
+
+
+</html>
+
+
