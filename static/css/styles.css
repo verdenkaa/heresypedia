@@ -7,9 +7,9 @@
     position: absolute;
     left: 0; top: 1em;
     opacity: 0;
-    transition: 1s;
+    transition: 0.5s;
     pointer-events: none;
-    background: rgba(57, 137, 201, 0.9);
+    background: rgba(57, 137, 201, 1);
     color: #fff;
     padding: 0.5em;
   }

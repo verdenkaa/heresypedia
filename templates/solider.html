@@ -1,8 +1,24 @@
 <html>
 
-<p>Horus Heresy database v.0.0.1</p>
-<p>{{warrior}}</p>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
+<p>Horus Heresy database v.0.0.1</p>
+<p>{{warrior}} .................. {{points}} Points</p>
+<p>Type - {{type}}</p>
+<p>Wargear:</p>
+<ul>
+    {% for i in range(wargear|length): %} 
+    <li><div id="name" data-title={%if wargear_names[i] != None %}{% if wargear_names[i].Class == "w" %}
+         Weapon
+          {% else %}
+           Ammunition
+         {% endif %}
+         {% else %}
+            "NO IN DATABASE"
+         {% endif %}>
+         {{wargear[i]}}</div></li> 
+    {% endfor %}
+</ul>
 
 
 
