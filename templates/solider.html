@@ -5,10 +5,37 @@
 <p>Horus Heresy database v.0.0.1</p>
 <p>{{warrior}} .................. {{points}} Points</p>
 <p>Type - {{type}}</p>
+<table style="width:50%">
+  <tr>
+    <th>M</th>
+    <th>WS</th>
+    <th>BS</th>
+    <th>S</th>
+    <th>T</th>
+    <th>W</th>
+    <th>I</th>
+    <th>A</th>
+    <th>Ld</th>
+    <th>Sv</th>
+  </tr>
+  <tr>
+    <td>{{param[0]}}</td>
+    <td>{{param[1]}}</td>
+    <td>{{param[2]}}</td>
+    <td>{{param[3]}}</td>
+    <td>{{param[4]}}</td>
+    <td>{{param[5]}}</td>
+    <td>{{param[6]}}</td>
+    <td>{{param[7]}}</td>
+    <td>{{param[8]}}</td>
+    <td>{{param[9]}}</td>
+
+  </tr>
+</table>
 <p>Wargear:</p>
 <ul>
     {% for i in range(wargear|length): %} 
-    <li><div id="name" data-title={%if wargear_names[i] != None %}{% if wargear_names[i].Class == "w" %}
+    <li><div id="name" data-title={%if wargear[i] != None %}{% if wargear[i].Class == "w" %}
          Weapon
           {% else %}
            Ammunition
@@ -16,8 +43,22 @@
          {% else %}
             "NO IN DATABASE"
          {% endif %}>
-         {{wargear[i]}}</div></li> 
+         {{wargear[i].name}}</div></li> 
     {% endfor %}
+</ul>
+<p>Special Rules:</p>
+<ul>
+  {% for i in range(srules|length): %} 
+  <li><div id="name" data-title="NONE FOR THIS TIME">{{srules[i]}}</div>
+  </li> 
+  {% endfor %}
+</ul>
+<p>Options:</p>
+<ul>
+  {% for i in range(options|length): %} 
+  <li><div id="name" data-title="NONE FOR THIS TIME">{{options[i]}}</div>
+  </li> 
+  {% endfor %}
 </ul>
 
 

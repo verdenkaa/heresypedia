@@ -10,6 +10,7 @@ class Solider(Base):
     name = Column(String, primary_key=True)
     type  = Column(String)
     unit_type = Column(String)
+    Parameters = Column(String)
     points = Column(Integer)
     wargear = Column(String)
     Srules = Column(String)
