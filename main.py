@@ -24,10 +24,12 @@ def solider():
 
       #  ДОБАВИТЬ СЮДА ЗАПРОС ПО ТАБЛИЦЕ СПОСОБНОСТЕЙ
 
-      options = [i.split("- ") for i in spec.Options.split("\n")]
-      print(options[1])
-      print(len(options))
-      return render_template('solider.html', warrior=spec.name, type=spec.type, points=spec.points, wargear=wargear_names, param=spec.Parameters.split(),
+      options = [i.split("- ") for i in spec.Options.split(":")]
+      #print(options[1])
+      #print(len(options))
+      for i in options:
+           print(i, sep="\n")
+      return render_template('solider.html', spec = spec, wargear=wargear_names, param=spec.Parameters.split(),
                              srules=spec.Srules.replace("\n", " ").split(" • "), options=options)
 
 if __name__ == '__main__': 
