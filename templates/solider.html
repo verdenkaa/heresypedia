@@ -39,16 +39,8 @@
 </tr>
 <tr>
   <td><ul>
-    {% for i in range(wargear|length): %} 
-    <li><div id="name" data-title={%if wargear[i] != None %}{% if wargear[i].Class == "w" %}
-         Weapon
-          {% else %}
-           Ammunition
-         {% endif %}
-         {% else %}
-            "NO IN DATABASE"
-         {% endif %}>
-         {{wargear[i].name}}</div></li> 
+    {% for i in range(added_wargear|length): %} 
+    <li>{{added_wargear[i]}}</li> 
     {% endfor %}
 </ul></td>
 <td><ul>
@@ -60,18 +52,33 @@
 </tr>
 </table>
 
+<p>Start Wargear:</p>
+<form method="post">
+<ul>
+  {% for i in range(wargear|length): %}
+  <input type="checkbox" name="s_wargear" value="{{wargear[i]}}" checked><label for="s_wargear">{{wargear[i]}}</label><br>
+  {% endfor %}
+  <input type="submit">
+</ul>
+</form>
+
 <p>Options:</p>
+<form method="post">
 <ul>
   {% for i in range(options|length): %} 
-  <li><div id="name" data-title="NONE FOR THIS TIME">
+  <li>
     {% for j in range(options[i]|length): %}
-    {{options[i][j]}}<br>
-    {% endfor %}
-  </div><br>
+    {% if j != 0 %}
+    <input type="checkbox" name="o_wargear" value="{{options[i][j].split('.')[0]}}"><label for="o_wargear">- {{options[i][j]}}</label><br>
+    {% else %}
+    <p>{{options[i][j]}}</p>
+    
+    {% endif %}{% endfor %}
+  <br><input type="submit"><br>
   </li> 
   {% endfor %}</li> 
 </ul>
-
+</form>
 
 
 </html>
