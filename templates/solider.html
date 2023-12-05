@@ -2,10 +2,10 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-<p>Horus Heresy database v.0.0.1</p>
+<h2><a href="{{ url_for('index') }}">Horus Heresy database v.0.1</a></h2>
 <p>Type - {{spec.type}}</p>
 <p>{{spec.name}} .................. {{spec.points}} Points</p>
-<table style="width:50%">
+<table style="width: 50%">
   <tr>
     <th>M</th>
     <th>WS</th>
@@ -32,51 +32,122 @@
 
   </tr>
 </table>
-<table style="width:50%">
+<table style="width:70%">
 <tr>
   <td><p>Wargear:</p></td>
   <td><p>Special Rules:</p></td>
+  <td><p>Unit Composition:</p></td>
+  <td><p>Unit Type:</p></td>
 </tr>
 <tr>
   <td><ul>
-    {% for i in range(added_wargear|length): %} 
-    <li>{{added_wargear[i]}}</li> 
+    {% for i in added_wargear: %}
+    {% if i in wargear_spec %}
+    <div id="name" data-title='{{wargear_spec[i]}}'><li>{{i}}</li></div>
+    {% else %}
+    <li>{{i}}</li>
+    {% endif %}
     {% endfor %}
 </ul></td>
 <td><ul>
-  {% for i in range(srules|length): %} 
-  <li><div id="name" data-title="NONE FOR THIS TIME">{{srules[i]}}</div>
-  </li> 
+  {% for i in srules: %} 
+  <li>{{i}}</li> 
   {% endfor %}
 </ul></td>
+<td><ul>
+  {% for i in compos: %} 
+  <li>{{i}}</li> 
+  {% endfor %}
+</ul></td>
+<td><ul>
+  <li>{{unit_type}}</li> 
+</ul></td>
 </tr>
+</table>
+
+<table style="width: 50%">
+  <tr>
+    <th>Name</th>
+    <th>Range</th>
+    <th>Str</th>
+    <th>AP</th>
+    <th>Type</th>
+  </tr>
+  
+    {% for i in weapon_spec%}
+    <tr>
+    <td>{{i.name}}</td>
+    <td>{{i.Range}}</td>
+    <td>{{i.Str}}</td>
+    <td>{{i.AP}}</td>
+    <td>
+      {% for a in i.Type.split(", ") %}
+      <div id="name" data-title='{{weapon_abil[a.replace("1", "X").replace("2", "X").replace("3", "X").replace("4", "X").replace("5", "X").replace("6", "X").replace("7", "X").replace("8", "X").replace("9", "X").replace("+", "")]}}'>{{a}}</div>
+      {% endfor %}
+    </td>
+  </tr>
+    {% endfor %}
+</table>
+
+<table style="width: 50%">
+  <tr>
+    <th>Name</th>
+    <th>Ability</th>
+  </tr>
+  {% for i in added_wargear: %}
+  {% if i in wargear_spec %}
+  <tr>
+      <th>{{i}}</th>
+      <th>{{wargear_spec[i]}}</th>
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table>
+
+<table style="width: 50%">
+  <tr>
+    <th>Name</th>
+    <th>Special Rule</th>
+  </tr>
+  {% for i in srules_spec.keys(): %}
+  <tr>
+      <th>{{i}}</th>
+      <th>{{srules_spec[i.replace("1", "X").replace("2", "X").replace("3", "X").replace("4", "X").replace("5", "X").replace("6", "X").replace("7", "X").replace("8", "X").replace("9", "X")]}}</th>
+  </tr>
+  {% endfor %}
 </table>
 
 <p>Start Wargear:</p>
 <form method="post">
 <ul>
   {% for i in range(wargear|length): %}
+  {% if wargear[i] == "Power weapon" %}
+  {% for power in ["Power sword", "Power axe", "Power maul", "Power lance"]: %}
+  <input type="radio" name="s_wargear" value="{{power}}" ><label for="s_wargear">{{power}}</label><br>
+  {% endfor %}
+  {% else %}
   <input type="checkbox" name="s_wargear" value="{{wargear[i]}}" checked><label for="s_wargear">{{wargear[i]}}</label><br>
+  {% endif %}
   {% endfor %}
   <input type="submit">
 </ul>
-</form>
+
 
 <p>Options:</p>
-<form method="post">
+
 <ul>
-  {% for i in range(options|length): %} 
+  {% for i in range(1, options|length + 1): %} 
   <li>
     {% for j in range(options[i]|length): %}
-    {% if j != 0 %}
+    {% if j != 0  and options[i][j] != []%}
     <input type="checkbox" name="o_wargear" value="{{options[i][j].split('.')[0]}}"><label for="o_wargear">- {{options[i][j]}}</label><br>
     {% else %}
     <p>{{options[i][j]}}</p>
     
     {% endif %}{% endfor %}
-  <br><input type="submit"><br>
+  <br>
   </li> 
-  {% endfor %}</li> 
+  {% endfor %}
 </ul>
 </form>
 
