@@ -19,6 +19,7 @@ class Solider(Base):
     Srules = Column(String)
     Options = Column(String)
     compos = Column(String)
+    d_transp = Column(String)
 
 
 class Weapons(Base):
@@ -30,12 +31,6 @@ class Weapons(Base):
     AP = Column(String)
     Type = Column(String)
     Class = Column(String)
-
-class W_abilites(Base):
-    __tablename__ = "W_abilites"
-
-    name = Column(String, primary_key=True)
-    ability = Column(String)
 
 class Srules(Base):
     __tablename__ = "Srules"

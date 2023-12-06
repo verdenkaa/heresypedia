@@ -24,7 +24,36 @@
 <p>Type - {{spec.type}}</p>
 <p>{{spec.name}} .................. {{spec.points}} Points</p>
 <table style="width: 50%">
+{% if spec.type.split()[0] == "Vehicle" %}
+
+{% for i in  param%}
   <tr>
+    <th>Name</th>
+    <th>M</th>
+    <th>BS</th>
+    <th>Front</th>
+    <th>Side</th>
+    <th>Rear</th>
+    <th>HP</th>
+    <th>Transport Capacity</th>
+  </tr>
+  <tr>
+    <td>{{i[0].replace("_", " ")}}</td>
+    <td>{{i[1]}}</td>
+    <td>{{i[2]}}</td>
+    <td>{{i[3]}}</td>
+    <td>{{i[4]}}</td>
+    <td>{{i[5]}}</td>
+    <td>{{i[6]}}</td>
+    <td>{{i[7]}}</td>
+  </tr>
+{% endfor %}
+</table>
+
+{% else %}
+{% for i in  param%}
+  <tr>
+    <th>Name</th>
     <th>M</th>
     <th>WS</th>
     <th>BS</th>
@@ -37,19 +66,23 @@
     <th>Sv</th>
   </tr>
   <tr>
-    <td>{{param[0]}}</td>
-    <td>{{param[1]}}</td>
-    <td>{{param[2]}}</td>
-    <td>{{param[3]}}</td>
-    <td>{{param[4]}}</td>
-    <td>{{param[5]}}</td>
-    <td>{{param[6]}}</td>
-    <td>{{param[7]}}</td>
-    <td>{{param[8]}}</td>
-    <td>{{param[9]}}</td>
-
+    <td>{{i[0].replace("_", " ")}}</td>
+    <td>{{i[1]}}</td>
+    <td>{{i[2]}}</td>
+    <td>{{i[3]}}</td>
+    <td>{{i[4]}}</td>
+    <td>{{i[5]}}</td>
+    <td>{{i[6]}}</td>
+    <td>{{i[7]}}</td>
+    <td>{{i[8]}}</td>
+    <td>{{i[9]}}</td>
+    <td>{{i[10]}}</td>
   </tr>
+{% endfor %}
 </table>
+{% endif %}
+<br>
+
 <table style="width:70%">
 <tr>
   <td><p>Wargear:</p></td>
@@ -83,7 +116,9 @@
 </tr>
 </table>
 
-<table style="width: 50%">
+<br>
+
+<table style="width: 70%">
   <tr>
     <th>Name</th>
     <th>Range</th>
@@ -94,18 +129,38 @@
   
     {% for i in weapon_spec%}
     <tr>
-    <td>{{i.name}}</td>
-    <td>{{i.Range}}</td>
-    <td>{{i.Str}}</td>
-    <td>{{i.AP}}</td>
     <td>
-      {% for a in i.Type.split(", ") %}
-      <div id="name" data-title='{{weapon_abil[a.replace("1", "X").replace("2", "X").replace("3", "X").replace("4", "X").replace("5", "X").replace("6", "X").replace("7", "X").replace("8", "X").replace("9", "X").replace("+", "")]}}'>{{a}}</div>
+      {% for name in i.name.split("<>") %}
+      {{name}}<br>
+      {% endfor %}
+    </td>
+    <td>
+      {% for name in i.Range.split("<>") %}
+      {{name}}"<br>
+      {% endfor %}
+    </td>
+    <td>
+      {% for name in i.Str.split("<>") %}
+      {{name}}<br>
+      {% endfor %}
+    </td>
+    <td>
+      {% for name in i.AP.split("<>") %}
+      {{name}}<br>
+      {% endfor %}
+    </td>
+    <td>
+      {% for name in i.Type.split("<>") %}
+      {% for a in name.split(", ") %}
+      <div id="name" data-title='{{weapon_abil[a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "").replace(" ", "")]}}'>{{a}}</div>
+        {% endfor %}<br>
       {% endfor %}
     </td>
   </tr>
     {% endfor %}
 </table>
+
+<br>
 
 <table style="width: 50%">
   <tr>
@@ -122,6 +177,8 @@
   {% endfor %}
 </table>
 
+<br>
+
 <table style="width: 50%">
   <tr>
     <th>Name</th>
@@ -130,10 +187,20 @@
   {% for i in srules_spec.keys(): %}
   <tr>
       <th>{{i}}</th>
-      <th>{{srules_spec[i.replace("1", "X").replace("2", "X").replace("3", "X").replace("4", "X").replace("5", "X").replace("6", "X").replace("7", "X").replace("8", "X").replace("9", "X")]}}</th>
+      <th>{{srules_spec[i]}}</th>
   </tr>
   {% endfor %}
 </table>
+
+<br>
+
+{% if d_transp != "None" %}
+<table style="width: 50%">
+  <tr>
+    <th>{{d_transp}}</th>
+  </tr>
+</table>
+{% endif %}
 
 <p>Start Wargear:</p>
 <form method="post">

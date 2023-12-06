@@ -4,12 +4,16 @@ import re
 
 
 def replacer_number_X(a):
-      return a.replace("1", "X").replace("2", "X").replace("3", "X").replace("4", "X").replace("5", "X").replace("6", "X").replace("7", "X").replace("8", "X").replace("9", "X").replace("+", "")
+      return a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "").replace(" ", "")
+
+def replacer_number(a):
+      return a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "")
 
 app = Flask(__name__) 
 
 engine = create_engine("sqlite:///data.db")
 session = Session(bind=engine)
+
 
 @app.route('/') 
 @app.route('/index/<persons>') 
@@ -32,40 +36,39 @@ def solider():
             added_wargear += request.form.getlist('o_wargear')
 
 
-      #  ДОБАВИТЬ СЮДА ЗАПРОС ПО ТАБЛИЦЕ СПОСОБНОСТЕЙ
-
       options = [i.split("- ") for i in spec.Options.split("• ")]
 
       weapon_spec = []
       wargear_spec = {}
       for i in added_wargear:
-           moment_i = session.query(Weapons).filter(Weapons.name == replacer_number_X(i)).first()
+           #print(session.query(Weapons).filter(Weapons.name == replacer_number_X(i).split("<br>")[0]).first().name)
+           moment_i = session.query(Weapons).filter(Weapons.name.like(f"%{i}%")).first()
            if moment_i is not None:
                   if moment_i.Class == "w":
                         weapon_spec.append(moment_i)
                   else:
                         wargear_spec[moment_i.name] = moment_i.Type
+      #print(weapon_spec)
       weapon_abil = {}
       for i in weapon_spec:
            for j in i.Type.split(", "):
                   #j = re.sub(r'[^\w\s]+|[\d]+', r'',j).strip().rstrip()
                   #print(session.query(W_abilites).first())
-                  moment_i = session.query(W_abilites).filter(W_abilites.name == replacer_number_X(j)).first()
+                  moment_i = session.query(Srules).filter(Srules.name == replacer_number_X(j)).first()
                   if moment_i is not None:
                         weapon_abil[moment_i.name] = moment_i.ability
 
       srules_spec = {}
       for i in spec.Srules.replace("\n", " ").split(" • "):
-            print(i)
-            moment_i = session.query(Srules).filter(Srules.name == replacer_number_X(i)).first()
+            moment_i = session.query(Srules).filter(Srules.name.like(f"%{replacer_number(i)}%")).first()
             if moment_i is not None:
-                        srules_spec[replacer_number_X(i)] = moment_i.ability
+                        srules_spec[replacer_number(i)] = moment_i.ability
 
 
-      return render_template('solider.html', spec = spec, wargear=wargear, param=spec.Parameters.split(),
+      return render_template('solider.html', spec = spec, wargear=wargear, param=[ i.split() for i in spec.Parameters.split("<>")],
                              srules=spec.Srules.replace("\n", " ").split(" • "), options=options, added_wargear=added_wargear,
                                compos=spec.compos.split("• "), unit_type=spec.unit_type, weapon_spec=weapon_spec, wargear_spec=wargear_spec,
-                               weapon_abil=weapon_abil, srules_spec=srules_spec)
+                               weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp)
 
 #if __name__ == '__main__': 
    #app.run(debug = True)
