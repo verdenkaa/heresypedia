@@ -93,9 +93,7 @@
 <tr>
   <td><ul>
     {% for i in added_wargear: %}
-    {% if i in wargear_spec %}
-    <div id="name" data-title='{{wargear_spec[i]}}'><li>{{i}}</li></div>
-    {% else %}
+    {% if i not in COMBI_WEAPON.keys()%}
     <li>{{i}}</li>
     {% endif %}
     {% endfor %}
@@ -152,7 +150,7 @@
     <td>
       {% for name in i.Type.split("<>") %}
       {% for a in name.split(", ") %}
-      <div id="name" data-title='{{weapon_abil[a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "").replace(" ", "")]}}'>{{a}}</div>
+      <div id="name" data-title='{{weapon_abil[a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "").replace(" ", "").replace('"', "")]}}'>{{a}}</div>
         {% endfor %}<br>
       {% endfor %}
     </td>
@@ -206,8 +204,9 @@
 <form method="post">
 <ul>
   {% for i in range(wargear|length): %}
-  {% if wargear[i] == "Power weapon" %}
-  {% for power in ["Power sword", "Power axe", "Power maul", "Power lance"]: %}
+  {% if wargear[i] in COMBI_WEAPON.keys() %}
+  <input type="checkbox" name="s_wargear" value="{{wargear[i]}}" checked><label for="s_wargear">{{wargear[i]}}: </label><br>
+  {% for power in COMBI_WEAPON[wargear[i]]: %}
   <input type="radio" name="s_wargear" value="{{power}}" ><label for="s_wargear">{{power}}</label><br>
   {% endfor %}
   {% else %}
@@ -224,11 +223,13 @@
   {% for i in range(1, options|length + 1): %} 
   <li>
     {% for j in range(options[i]|length): %}
-    {% if j != 0  and options[i][j] != []%}
-    <input type="checkbox" name="o_wargear" value="{{options[i][j].split('.')[0]}}"><label for="o_wargear">- {{options[i][j]}}</label><br>
+    {% if options[i][j].split(".")[0] in COMBI_WEAPON.keys()%}
+    <input type="checkbox" name="o_wargear" value="{{COMBI_WEAPON[options[i][j].split(".")[0]][0]}}"><label for="o_wargear">- {{options[i][j]}}</label><br>
+    {% for name in COMBI_WEAPON[options[i][j].split(".")[0]][1:] %}
+    <input type="radio" name="o_wargear" value="{{name}}" ><label for="o_wargear">{{name}}</label><br>
+    {% endfor %}
     {% else %}
-    <p>{{options[i][j]}}</p>
-    
+    <input type="checkbox" name="o_wargear" value="{{options[i][j].split('.')[0]}}"><label for="o_wargear">- {{options[i][j]}}</label><br>
     {% endif %}{% endfor %}
   <br>
   </li> 

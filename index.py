@@ -4,10 +4,14 @@ import re
 
 
 def replacer_number_X(a):
-      return a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "").replace(" ", "")
+      return a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "").replace(" ", "").replace('"', "")
 
 def replacer_number(a):
       return a.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("+", "").replace("(", "").replace(")", "")
+
+COMBI_WEAPON = {"Magna combi-weapon": ["Bolter (Primary)", "Meltagun (Secondary)", "Plasma gun (Secondary)", "Disintegrator (Secondary)"],
+                "Minor combi-weapon": ["Bolter (Primary)", "Flamer (Secondary)", "Volkite charger (Secondary)", "Grenade launcher (Secondary)"],
+                "Power weapon": ["Power sword", "Power axe", "Power maul", "Power lance"]}
 
 app = Flask(__name__) 
 
@@ -41,19 +45,15 @@ def solider():
       weapon_spec = []
       wargear_spec = {}
       for i in added_wargear:
-           #print(session.query(Weapons).filter(Weapons.name == replacer_number_X(i).split("<br>")[0]).first().name)
-           moment_i = session.query(Weapons).filter(Weapons.name.like(f"%{i}%")).first()
+           moment_i = session.query(Weapons).filter(Weapons.name.like(f"{i.split(" (")[0]}%")).first()
            if moment_i is not None:
                   if moment_i.Class == "w":
                         weapon_spec.append(moment_i)
                   else:
                         wargear_spec[moment_i.name] = moment_i.Type
-      #print(weapon_spec)
       weapon_abil = {}
       for i in weapon_spec:
            for j in i.Type.split(", "):
-                  #j = re.sub(r'[^\w\s]+|[\d]+', r'',j).strip().rstrip()
-                  #print(session.query(W_abilites).first())
                   moment_i = session.query(Srules).filter(Srules.name == replacer_number_X(j)).first()
                   if moment_i is not None:
                         weapon_abil[moment_i.name] = moment_i.ability
@@ -68,7 +68,7 @@ def solider():
       return render_template('solider.html', spec = spec, wargear=wargear, param=[ i.split() for i in spec.Parameters.split("<>")],
                              srules=spec.Srules.replace("\n", " ").split(" • "), options=options, added_wargear=added_wargear,
                                compos=spec.compos.split("• "), unit_type=spec.unit_type, weapon_spec=weapon_spec, wargear_spec=wargear_spec,
-                               weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp)
+                               weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp, COMBI_WEAPON=COMBI_WEAPON)
 
-#if __name__ == '__main__': 
-   #app.run(debug = True)
+if __name__ == '__main__': 
+   app.run(debug = True)
