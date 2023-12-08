@@ -20,6 +20,7 @@ class Solider(Base):
     Options = Column(String)
     compos = Column(String)
     d_transp = Column(String)
+    Legion = Column(String)
 
 
 class Weapons(Base):

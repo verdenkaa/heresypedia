@@ -23,11 +23,16 @@
   <link rel="stylesheet" href="css/index.css">
 
   <p>Horus Heresy database v.0.1</p>
+  
+  {% for key in persons.keys(): %}
+  <p>{{key}}: </p>
   <ul>
-  {% for i in persons: %} 
-  <li><a href="{{ url_for('solider', warrior=i) }}">{{i}}</a></li> 
+  {% for name in persons[key]: %}
+  <li><a href="{{ url_for('solider', warrior=name) }}">{{name}}</a></li>
   {% endfor %}
-  </ul>
+ </ul>
+  {% endfor %}
+
 
 
 </html>
