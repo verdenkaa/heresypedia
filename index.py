@@ -84,5 +84,5 @@ def solider():
                                compos=spec.compos.split("• "), unit_type=spec.unit_type.split("• "), weapon_spec=weapon_spec, wargear_spec=wargear_spec,
                                weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp, COMBI_WEAPON=COMBI_WEAPON)
 
-#if __name__ == '__main__': 
-   #app.run(debug = True)
+if __name__ == '__main__': 
+   app.run()
