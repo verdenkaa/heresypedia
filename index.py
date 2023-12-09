@@ -56,7 +56,8 @@ def solider():
       weapon_spec = [] #  характеристики оружия
       wargear_spec = {} #  характеристики снаряжения
       for i in added_wargear_rework:
-           moment_i = session.query(Weapons).filter(Weapons.name.like(f"{i.split(" (")[0]}%")).first()
+           moment_i = session.query(Weapons).filter(Weapons.name.like(f"{i.split(' (')[0]}%")).first()
+
            if moment_i is not None:
                   if moment_i.Class == "w": #  если класс оружия
                         weapon_spec.append(moment_i) #  добавляем оружие в виду класса
