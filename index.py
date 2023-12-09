@@ -67,14 +67,15 @@ def solider():
       weapon_abil = {} #  словарь правил на оружие
       for i in weapon_spec:
             for j in i.Type.split(", "):
-                  j2 = re.sub(r'[^\w\s]+|[\d]+', r'', j).strip() #  очищаем все кроме букв
+                  #j2 = re.sub(r'[^\w\s]+|[\d]+', r'', j).strip() #  очищаем все кроме букв
+                  j2 = j
                   moment_i = session.query(Srules).filter(Srules.name.like(f"{j2}%")).first()
                   if moment_i is not None:
                         weapon_abil[j] = moment_i.ability #  добавляем значение способности
 
       srules_spec = {} #  словарь специальных правил
       for i in spec.Srules.replace("\n", " ").split(" • "):
-            moment_i = session.query(Srules).filter(Srules.name.like(f"%{i.split(" (")[0]}%")).first()
+            moment_i = session.query(Srules).filter(Srules.name.like(f"%{i.split(' (')[0]}%")).first()
             if moment_i is not None:
                         srules_spec[replacer_number(i)] = moment_i.ability #  добавляем значение способности
 
