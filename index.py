@@ -1,6 +1,6 @@
 from flask import * 
 from objects import *
-#import re
+import re
 
 
 def replacer_number_X(a):
@@ -62,13 +62,13 @@ def solider():
                   if moment_i.Class == "w": #  если класс оружия
                         weapon_spec.append(moment_i) #  добавляем оружие в виду класса
                   else:
-                        #wargear_spec[re.sub(r'[^\w\s]+|[\d]+', r'', moment_i.name).strip()] = moment_i.Type #  иначе добавляем в снаряжение в виде строки
-                        wargear_spec[moment_i.name] = moment_i.Type
+                        wargear_spec[re.sub(r'[^\w\s]+|[\d]+', r'', moment_i.name).strip()] = moment_i.Type #  иначе добавляем в снаряжение в виде строки
+                        #wargear_spec[moment_i.name] = moment_i.Type
       weapon_abil = {} #  словарь правил на оружие
       for i in weapon_spec:
             for j in i.Type.split(", "):
-                  #j2 = re.sub(r'[^\w\s]+|[\d]+', r'', j).strip() #  очищаем все кроме букв
-                  j2 = j
+                  j2 = re.sub(r'[^\w\s]+|[\d]+', r'', j).strip() #  очищаем все кроме букв
+                  #j2 = j
                   moment_i = session.query(Srules).filter(Srules.name.like(f"{j2}%")).first()
                   if moment_i is not None:
                         weapon_abil[j] = moment_i.ability #  добавляем значение способности
