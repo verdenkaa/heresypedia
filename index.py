@@ -26,7 +26,6 @@ def index():
       persons_list = {"HQ": [], "ELITES": [], "TROOPS": [], "DEDICATED TRANSPORT": [], "FAST ATTACK": [], "HEAVY SUPPORT": [], "LORDS OF WAR": []}
       for i in persons:
             persons_list[i.type].append(i.name)
-      print(persons_list)
       return render_template('index.html', persons=persons_list) 
 
 @app.route('/solider', methods=['GET', 'POST']) 
