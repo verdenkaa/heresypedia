@@ -1,6 +1,6 @@
 from flask import * 
 from objects import *
-import re
+#import re
 
 
 def replacer_number_X(a):
@@ -11,7 +11,7 @@ def replacer_number(a):
 
 COMBI_WEAPON = {"Magna combi-weapon": ["Bolter (Primary)/Meltagun (Secondary)", "Bolter (Primary)/Plasma gun (Secondary)", "Bolter (Primary)/Disintegrator (Secondary)"],
                 "Minor combi-weapon": ["Bolter (Primary)/Flamer (Secondary)", "Bolter (Primary)/Volkite charger (Secondary)", "Bolter (Primary)/Grenade launcher (Secondary)"],
-                "Power weapon": ["Power sword", "Power axe", "Power maul", "Power lance"]} #  Список компи вооружения
+                "Power weapon": ["Power sword", "Power axe", "Power maul", "Power lance"]} #  Список комби вооружения
 
 app = Flask(__name__) 
 
@@ -62,8 +62,8 @@ def solider():
                   if moment_i.Class == "w": #  если класс оружия
                         weapon_spec.append(moment_i) #  добавляем оружие в виду класса
                   else:
-                        wargear_spec[re.sub(r'[^\w\s]+|[\d]+', r'', moment_i.name).strip()] = moment_i.Type #  иначе добавляем в снаряжение в виде строки
-      print(wargear_spec)
+                        #wargear_spec[re.sub(r'[^\w\s]+|[\d]+', r'', moment_i.name).strip()] = moment_i.Type #  иначе добавляем в снаряжение в виде строки
+                        wargear_spec[moment_i.name] = moment_i.Type
       weapon_abil = {} #  словарь правил на оружие
       for i in weapon_spec:
             for j in i.Type.split(", "):
@@ -84,5 +84,5 @@ def solider():
                                compos=spec.compos.split("• "), unit_type=spec.unit_type.split("• "), weapon_spec=weapon_spec, wargear_spec=wargear_spec,
                                weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp, COMBI_WEAPON=COMBI_WEAPON)
 
-if __name__ == '__main__': 
-   app.run()
+#if __name__ == '__main__': 
+   #app.run()
