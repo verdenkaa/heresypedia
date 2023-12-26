@@ -38,3 +38,11 @@ class Srules(Base):
 
     name = Column(String, primary_key=True)
     ability = Column(String)
+
+
+    
+class Forming(Base):
+    __tablename__ = "Forming"
+
+    Name = Column(String, primary_key=True)
+    Rule = Column(String)

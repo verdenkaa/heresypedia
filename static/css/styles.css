@@ -20,3 +20,29 @@
   table, th, td {
     border:1px solid black;
   }
+
+  @font-face {
+    font-family: Shancalluna_regular; 
+    src: local('Shancalluna_regular'), local('Shancalluna regular'), local('Shancalluna-regular'),
+    url("fonts/Shancalluna_regular.ttf"); 
+  }
+
+  body {font-family: Shancalluna_regular;}
+  h1 {font-family: Shancalluna_regular; font-style: normal; font-weight: bolder;}
+
+  a, u {
+    text-decoration: none;
+    color: #666;
+  }
+
+td 
+{
+    text-align: center; 
+    vertical-align: middle;
+}
+
+th 
+{
+    text-align: center; 
+    vertical-align: middle;
+}

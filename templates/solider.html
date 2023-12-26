@@ -17,12 +17,13 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/95783667" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
   </head>
-
+<body>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-<h2><a href="{{ url_for('index') }}">Horus Heresy database v.0.1</a></h2>
+<h1><a href="{{ url_for('index') }}">Horus Heresy database v.0.1</a></h1>
 <p>Type - {{spec.type}}</p>
 <p>{{spec.name}} .................. {{spec.points}} Points</p>
+<p>{{legion}}</p>
 <table style="width: 50%">
 {% if spec.type.split()[0] == "Vehicle" %}
 
@@ -240,7 +241,8 @@
 </ul>
 </form>
 
-<p><strong>All intellectual property rights and images belong to © Games Workshop Limited. The project is distributed on a non-commercial basis and is for informational purposes only.</strong></p>
-
+<small><strong>All intellectual property rights and images belong to © Games Workshop Limited. The project is distributed on a non-commercial basis and is for informational purposes only.</strong></small><br>
+<small><strong>© 2009 exljbris Font Foundry. All rights reserved. The Shancalluna font is used for informational purposes only.</strong></small>
+</body>
 </html>
 

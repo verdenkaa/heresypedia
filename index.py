@@ -14,23 +14,26 @@ COMBI_WEAPON = {"Magna combi-weapon": ["Bolter (Primary)/Meltagun (Secondary)", 
                 "Power weapon": ["Power sword", "Power axe", "Power maul", "Power lance"]} #  Список комби вооружения
 
 app = Flask(__name__) 
-
 engine = create_engine("sqlite:///data.db")
 session = Session(bind=engine)
 
 
 @app.route('/') 
-@app.route('/index/<persons>') 
-def index(): 
+@app.route('/index', methods=['GET', 'POST']) 
+def index():
+      FORMING = request.form.get('comp_select')
       persons = [i for i in session.query(Solider).all()]
       persons_list = {"HQ": [], "ELITES": [], "TROOPS": [], "DEDICATED TRANSPORT": [], "FAST ATTACK": [], "HEAVY SUPPORT": [], "LORDS OF WAR": []}
       for i in persons:
             persons_list[i.type].append(i.name)
-      return render_template('index.html', persons=persons_list) 
+      formings = [i for i in session.query(Forming).all()]
+      print(FORMING)
+      return render_template('index.html', persons=persons_list, formings=formings, forming=FORMING) 
 
 @app.route('/solider', methods=['GET', 'POST']) 
 def solider():
-      
+      legion = request.args.get('forming') #  Выбор легиона, нужно добавить проверку на юнита как будут они сами
+
       name = request.args.get('warrior')
       spec = session.query(Solider).filter(Solider.name == name).first()
       wargear=spec.wargear.replace("\n", " ").split(" • ") #  первичное вооружение
@@ -47,8 +50,6 @@ def solider():
             else:
                   added_wargear_rework.append(added_wargear[i])
       
-
-
 
       options = [i.split("- ") for i in spec.Options.split("• ")] #  вариативные закачки
 
@@ -82,7 +83,7 @@ def solider():
       return render_template('solider.html', spec = spec, wargear=wargear, param=[ i.split() for i in spec.Parameters.split("<>")],
                              srules=spec.Srules.replace("\n", " ").split(" • "), options=options, added_wargear=added_wargear,
                                compos=spec.compos.split("• "), unit_type=spec.unit_type.split("• "), weapon_spec=weapon_spec, wargear_spec=wargear_spec,
-                               weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp, COMBI_WEAPON=COMBI_WEAPON)
+                               weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp, COMBI_WEAPON=COMBI_WEAPON, legion=legion)
 
 #if __name__ == '__main__': 
    #app.run()

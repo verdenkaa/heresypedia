@@ -1,3 +1,4 @@
+<html>
 <head>
   <meta name="yandex-verification" content="5060e7f10ab2388a" />
   <!-- Yandex.Metrika counter -->
@@ -16,25 +17,37 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/95783667" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-</head>
+</head> 
+<body>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <h1>Horus Heresy database v.0.1</h1>
 
-<html>
-
-  <link rel="stylesheet" href="css/index.css">
-
-  <p>Horus Heresy database v.0.1</p>
-  
+  <form class="form-inline" method="POST" action="{{ url_for('index') }}">
+    <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon">Please select</span>
+              <select name="comp_select" class="selectpicker form-control">
+                {% for f in formings %}
+                <option value="{{ f.Name }}">{{ f.Name }}</option>
+                {% endfor %}
+              </select>
+      </div>
+      <button type="submit" class="btn btn-default">Sumbit</button>
+    </div>
+  </form>
+  <p>{{forming}}:</p>
   {% for key in persons.keys(): %}
   <p>{{key}}: </p>
   <ul>
   {% for name in persons[key]: %}
-  <li><a href="{{ url_for('solider', warrior=name) }}">{{name}}</a></li>
+  <li><a href="{{ url_for('solider', warrior=name, forming=forming) }}">{{name}}</a></li>
   {% endfor %}
  </ul>
   {% endfor %}
 
-<p><strong>All intellectual property rights and images belong to © Games Workshop Limited. The project is distributed on a non-commercial basis and is for informational purposes only.</strong></p>
-
+  <small><strong>All intellectual property rights and images belong to © Games Workshop Limited. The project is distributed on a non-commercial basis and is for informational purposes only.</strong></small><br>
+  <small><strong>© 2009 exljbris Font Foundry. All rights reserved. The Shancalluna font is used for informational purposes only.</strong></small>
+</body>
 </html>
 
 
