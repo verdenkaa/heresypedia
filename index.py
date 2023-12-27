@@ -79,11 +79,10 @@ def solider():
             if moment_i is not None:
                         srules_spec[replacer_number(i)] = moment_i.ability #  добавляем значение способности
 
-
-      return render_template('solider.html', spec = spec, wargear=wargear, param=[ i.split() for i in spec.Parameters.split("<>")],
+      return render_template('solider.html', spec=spec, wargear=wargear, param=[ i.split() for i in spec.Parameters.split("<>")],
                              srules=spec.Srules.replace("\n", " ").split(" • "), options=options, added_wargear=added_wargear,
                                compos=spec.compos.split("• "), unit_type=spec.unit_type.split("• "), weapon_spec=weapon_spec, wargear_spec=wargear_spec,
                                weapon_abil=weapon_abil, srules_spec=srules_spec, d_transp=spec.d_transp, COMBI_WEAPON=COMBI_WEAPON, legion=legion)
 
 #if __name__ == '__main__': 
-   #app.run()
+   #app.run(debug=True)

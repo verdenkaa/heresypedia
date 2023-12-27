@@ -18,31 +18,42 @@
   }
 
   table, th, td {
-    border:1px solid black;
+    border:1px solid rgb(255, 255, 255);
+    text-align: center; 
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: rgb(40, 40, 40);
   }
 
   @font-face {
     font-family: Shancalluna_regular; 
     src: local('Shancalluna_regular'), local('Shancalluna regular'), local('Shancalluna-regular'),
     url("fonts/Shancalluna_regular.ttf"); 
+    color: #ffffff;
   }
 
-  body {font-family: Shancalluna_regular;}
-  h1 {font-family: Shancalluna_regular; font-style: normal; font-weight: bolder;}
+  body {font-family: Shancalluna_regular;
+        background-image: linear-gradient(
+          to bottom,
+          rgb(25,25,25),
+          rgb(25,25,25)); 
+        color: #ffffff;
+      }
+  h1 {font-family: Shancalluna_regular; font-style: normal; font-weight: bolder; color: #ffffff; display: flex; justify-content: center;}
 
   a, u {
     text-decoration: none;
-    color: #666;
+    color: #ffffff;
   }
 
-td 
-{
-    text-align: center; 
-    vertical-align: middle;
-}
+.center {
+  display: flex;
+  justify-content: center;
+  }
 
-th 
-{
-    text-align: center; 
-    vertical-align: middle;
-}
+.block {
+  transform: scale(0.7);
+  display: flex;
+  justify-content: center;
+  
+  }

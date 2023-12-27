@@ -17,12 +17,14 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/95783667" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<meta name="viewport" content="user-scalable = no">
 </head> 
+
 <body>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-  <h1>Horus Heresy database v.0.1</h1>
-
-  <form class="form-inline" method="POST" action="{{ url_for('index') }}">
+  <div><h1 class="parent">Heresypedia</h1></div>
+  <div class="block"><img src="static/images/icon.png" /></div>
+  <form class="center" method="POST" action="{{ url_for('index') }}">
     <div class="form-group">
       <div class="input-group">
           <span class="input-group-addon">Please select</span>
